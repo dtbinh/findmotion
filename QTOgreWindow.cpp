@@ -28,7 +28,6 @@ QTOgreWindow::QTOgreWindow(vector<vector<double>> animData,QWindow *parent)
     m_ogreBackground = Ogre::ColourValue(0.0f, 0.5f, 1.0f);
 	//setGeometry(0,0,600,400);
 	timerId = startTimer(delayTime,Qt::PreciseTimer);
-	
 }
 
 /*
@@ -61,6 +60,7 @@ void QTOgreWindow::initialize()
 	
 	m_ogreRoot = new Ogre::Root(Ogre::String("plugins" OGRE_BUILD_SUFFIX ".cfg"));
 //	m_ogreRoot = new Ogre::Root(Ogre::String("plugins.cfg"));
+	
 #else
 	m_ogreRoot = new Ogre::Root(Ogre::String("plugins.cfg"));
 #endif
@@ -135,7 +135,7 @@ void QTOgreWindow::initialize()
 	rs->setConfigOption("VSync", "Yes");
 	m_ogreRoot->setRenderSystem(rs);
 	m_ogreRoot->initialise(false);
-
+	
 	Ogre::NameValuePairList parameters;
 	/*
 	Flag within the parameters set so that Ogre3D initializes an OpenGL context on it's own.
@@ -159,13 +159,13 @@ void QTOgreWindow::initialize()
 	parameters["macAPI"] = "cocoa";
 	parameters["macAPICocoaUseNSView"] = "true";
 #endif
-
+	
 	/*
 	Note below that we supply the creation function for the Ogre3D window the width and height from the current QWindow object using the "this" pointer.
 	*/
 	m_ogreWindow = m_ogreRoot->createRenderWindow("Hand Render", this->width(), this->height(), false, &parameters);
 	m_ogreWindow->setVisible(true);
-
+//	QMessageBox::warning(NULL, QStringLiteral("提示"), QStringLiteral("文件无法打开"), QMessageBox::Ok);
 	/*
 	The rest of the code in the initialization function is standard Ogre3D scene code. Consult other tutorials for specifics.
 	*/
@@ -179,9 +179,9 @@ void QTOgreWindow::initialize()
 	// Set default mipmap level (NB some APIs ignore this)
 	Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
 	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
-
+	
 	InitialFromDotScene();
-	QMessageBox::warning(NULL, QStringLiteral("提示"), QStringLiteral("文件无法打开"), QMessageBox::Ok);
+	
 /*
 	m_ogreCamera = m_ogreSceneMgr->createCamera("MainCamera");
 	m_ogreCamera->setPosition(Ogre::Vector3(0.0f, 0.0f, 10.0f));
